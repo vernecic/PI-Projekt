@@ -2,7 +2,7 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { createClient } from '@supabase/supabase-js'
+/*  import { createClient } from '@supabase/supabase-js' */
 
 import App from './App.vue'
 import router from './router'

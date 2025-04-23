@@ -35,7 +35,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { supabase } from '../supabase.js'
+/* import { supabase } from '../supabase.js' */
+import { auth, db } from '../firebase.js'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore'
 
 const router = useRouter()
 
@@ -47,7 +50,6 @@ const goToRegister = () => {
   router.push('/register')
 }
 
-// potreban je email verification
 const handleLogin = async () => {
   errMessage.value = ''
 
@@ -56,30 +58,29 @@ const handleLogin = async () => {
     return
   }
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: password.value,
-  })
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value)
 
-  if (error) {
+    const user = userCredential.user
+
+    const userDoc = await getDoc(doc(db, 'users', user.uid))
+
+    if (userDoc.exists()) {
+      const userData = userDoc.data()
+      const accountType = userData.account_type
+
+      if (accountType === 'seller') {
+        router.push('/seller-feed')
+      } else if (accountType === 'buyer') {
+        router.push('/buyer-feed')
+      } else {
+        errMessage.value = 'Error with account type.'
+      }
+    } else {
+      errMessage.value = 'User not found.'
+    }
+  } catch (error) {
     errMessage.value = error.message
-    return
-  }
-
-  const { user } = data
-  const accountType = user?.user_metadata?.account_type
-
-  if (!accountType) {
-    errMessage.value = 'Account type not set. Please contact support.'
-    return
-  }
-
-  if (accountType === 'seller') {
-    router.push('/seller-feed')
-  } else if (accountType === 'buyer') {
-    router.push('/buyer-feed')
-  } else {
-    errMessage.value = 'Error with account type.'
   }
 }
 </script>

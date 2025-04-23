@@ -72,18 +72,55 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
-import { supabase } from '../supabase.js'
+/* import { supabase } from '../supabase.js' */
+import { auth, db } from '../firebase.js'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { getFirestore, doc, setDoc } from 'firebase/firestore'
 
 const router = useRouter()
+
+// podatci
 const email = ref('')
 const username = ref('')
 const password = ref('')
 const confirmPassword = ref('')
-const errMessage = ref('')
 const accountType = ref(null)
+
+const errMessage = ref('')
 
 const goToLogin = () => {
   router.push('/login')
+}
+
+const handleRegister = async () => {
+  errMessage.value = ''
+
+  if (password.value !== confirmPassword.value) {
+    errMessage.value = 'Passwords do not match'
+    return
+  }
+
+  if (!email.value || !username.value || !password.value) {
+    errMessage.value = 'Please fill in all fields'
+    return
+  }
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value)
+
+    const user = userCredential.user
+    console.log(user)
+
+    await setDoc(doc(db, 'users', user.uid), {
+      username: username.value,
+      email: user.email,
+      account_type: accountType.value,
+    })
+
+    router.push('/login')
+  } catch (error) {
+    errMessage.value = error.message
+  }
 }
 
 //////

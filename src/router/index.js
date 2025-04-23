@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import BuyerFeed from '../views/BuyerFeed.vue'
 import SellerFeed from '../views/SellerFeed.vue'
+import CreateListing from '@/components/CreateListing.vue'
 
 const routes = [
   { path: '/', name: 'home', component: HomePage },
@@ -11,6 +12,7 @@ const routes = [
   { path: '/register', name: 'register', component: Register },
   { path: '/buyer-feed', name: 'buyer-feed', component: BuyerFeed },
   { path: '/seller-feed', name: 'seller-feed', component: SellerFeed },
+  /*  { path: '/create-listing', name: 'CreateListing', component: CreateListing }, */
 ]
 
 const router = createRouter({
