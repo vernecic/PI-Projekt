@@ -86,34 +86,5 @@ const goToLogin = () => {
   router.push('/login')
 }
 
-const handleRegister = async () => {
-  errMessage.value = ''
-
-  if (password.value !== confirmPassword.value) {
-    errMessage.value = 'Passwords do not match'
-    return
-  }
-  if (!email.value || !username.value || !password.value || !accountType.value) {
-    errMessage.value = 'All fields are required'
-    return
-  }
-
-  const { data, error } = await supabase.auth.signUp({
-    email: email.value,
-    password: password.value,
-    options: {
-      data: {
-        username: username.value,
-        account_type: accountType.value,
-      },
-    },
-  })
-
-  if (error) {
-    errMessage.value = error.message
-  } else {
-    console.log('User registered:', data)
-    router.push('/login')
-  }
-}
+//////
 </script>

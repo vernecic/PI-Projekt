@@ -27,6 +27,7 @@
       <img src="@/images/logout.svg" alt="" />Log out
     </div>
     <button
+      @click="router.push('/create-listing')"
       class="text-[#13293D] text-xl flex gap-2 items-center ml-5 mb-5 p-2 bg-white rounded-md cursor-pointer"
     >
       <svg
@@ -44,3 +45,9 @@
     </button>
   </div>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+</script>
