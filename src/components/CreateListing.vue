@@ -1,5 +1,8 @@
 <template>
-  <div class="bg-[#13293D] w-2xl flex p-2 rounded-md justify-center items-center flex-col">
+  <div
+    v-if="!listingCreated"
+    class="bg-[#13293D] w-2xl flex p-2 rounded-md justify-center items-center flex-col"
+  >
     <h2 class="text-2xl">Create a listing</h2>
     <div class="flex flex-row mt-5">
       <label for="image-upload" class="cursor-pointer">
@@ -34,7 +37,6 @@
         />
         <textarea
           v-model="opis"
-          type="text"
           class="border-2 rounded-md p-1 mt-2 w-[300px] h-[100px]"
           placeholder="Product description"
           required
@@ -57,6 +59,8 @@
       listing on the marketplace
     </div>
   </div>
+
+  <div v-else class="text-center text-white mt-4 text-lg">Listing created, awaiting approval</div>
 </template>
 
 <script setup>
@@ -65,6 +69,7 @@ import { ref } from 'vue'
 const opis = ref('')
 const naslov = ref('')
 const cijena = ref('')
+const listingCreated = ref(false)
 
 const slika = ref(null)
 
@@ -77,21 +82,17 @@ const handleImageUpload = (event) => {
   }
 }
 
-/* const handleAddListing = async () => {
+const handleAddListing = async () => {
   if (!opis.value || !naslov.value || !cijena.value || !slika.value) {
     console.log('All fields required')
     return
   }
   try {
-    naslov.value = ''
-    opis.value = ''
-    slika.value = null
-    cijena.value = ''
-
+    listingCreated.value = true
     await saveListing(opis.value, naslov.value, cijena.value, slika.value)
     console.log('Listing uspješan')
   } catch (error) {
     console.log('Listing neuspješan, jer: ', error)
   }
-} */
+}
 </script>

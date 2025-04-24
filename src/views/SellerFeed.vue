@@ -10,16 +10,17 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { auth } from '@/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
-import { updateProfile } from 'firebase/auth'
+/* import { updateProfile } from 'firebase/auth' */
 
 import CreateListing from '@/components/CreateListing.vue'
 import SellerSidebar from '@/components/SellerSidebar.vue'
 
 const username = ref('')
 
+// kad se userstate promijeni, ako je korisnik ulogiran, user.displayName se postavlja za username
 onAuthStateChanged(auth, (user) => {
   console.log('User:', user)
 
