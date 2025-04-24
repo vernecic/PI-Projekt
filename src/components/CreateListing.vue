@@ -76,6 +76,7 @@ const slika = ref(null)
 // Preview za uploadanu sliku
 const handleImageUpload = (event) => {
   console.log(event)
+  console.log('image uploaded')
   const file = event.target.files[0]
   if (file) {
     slika.value = URL.createObjectURL(file)
