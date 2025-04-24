@@ -74,7 +74,7 @@ import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 /* import { supabase } from '../supabase.js' */
 import { auth, db } from '../firebase.js'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getFirestore, doc, setDoc } from 'firebase/firestore'
 
 const router = useRouter()
@@ -107,9 +107,16 @@ const handleRegister = async () => {
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value)
+    console.log(userCredential)
 
     const user = userCredential.user
     console.log(user)
+
+    await updateProfile(user, {
+      displayName: username.value,
+    })
+
+    await user.reload()
 
     await setDoc(doc(db, 'users', user.uid), {
       username: username.value,

@@ -1,6 +1,11 @@
 <template>
   <div class="bg-[#13293D] w-64 h-screen p-3">
-    <h1 class="text-white text-4xl mt-3 p-2 mb-10">Seller Dashboard</h1>
+    <h1 class="text-white text-4xl mt-3 p-2 mb-2">Seller Dashboard</h1>
+    <div
+      class="text-white text-xl flex p-2 gap-2 mb-5 cursor-pointer hover:bg-[#415A77] rounded-md"
+    >
+      Hello, {{ username }}
+    </div>
     <!--  <div
       class="text-white text-xl flex p-2 gap-2 mb-5 mt-10 cursor-pointer hover:bg-[#415A77] rounded-md"
     >
@@ -51,5 +56,11 @@ import { useRouter } from 'vue-router'
 
 const emit = defineEmits(['open-create-listing'])
 
-const router = useRouter()
+const props = defineProps({
+  username: String,
+})
+
+console.log('Username:', props.username)
+
+/* const router = useRouter() */
 </script>
