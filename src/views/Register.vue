@@ -1,34 +1,34 @@
 <template>
   <div class="min-h-screen flex justify-center items-center flex-col gap-5">
-    <h1 class="text-white text-4xl font-bold">Register</h1>
+    <h1 class="text-[#16324F] text-4xl font-bold">Register</h1>
     <form class="grid grid-cols-2 gap-5">
       <input
         v-model="email"
         type="email"
         placeholder="Email"
         required
-        class="border-2 border-white text-white p-2 rounded-md outline-0"
+        class="border-2 border-[#16324F] text-[#16324F] p-2 rounded-md outline-0"
       />
       <input
         v-model="username"
         type="text"
         placeholder="Username"
         required
-        class="border-2 border-white text-white p-2 rounded-md outline-0"
+        class="border-2 border-[#16324F] text-[#16324F] p-2 rounded-md outline-0"
       />
       <input
         v-model="password"
         type="password"
         placeholder="Password"
         required
-        class="border-2 border-white text-white p-2 rounded-md outline-0"
+        class="border-2 border-[#16324F] text-[#16324F] p-2 rounded-md outline-0"
       />
       <input
         v-model="confirmPassword"
         type="password"
         placeholder="Confirm password"
         required
-        class="border-2 border-white text-white p-2 rounded-md outline-0"
+        class="border-2 border-[#16324F] text-[#16324F] p-2 rounded-md outline-0"
       />
     </form>
     <div class="text-white text-xl">Choose account type</div>
@@ -48,15 +48,15 @@
         Buyer
       </button>
     </div>
-    <div class="text-white text-xl">
+    <div class="text-white text-xl flex items-center">
       <button
-        class="bg-[#18435A] font-bold p-2 rounded-md cursor-pointer mr-3 border-2 border-white hover:bg-white hover:text-[#18435A] transition-all duration-300 ease-in-out"
+        class="bg-[#18435A] font-bold p-2 rounded-md cursor-pointer mr-3 border-2 border-[#16324F] hover:bg-white hover:text-[#18435A] transition-all duration-300 ease-in-out"
         @click="handleRegister"
       >
         Continue
       </button>
-      Already have an account?
-      <span class="underline cursor-pointer" @click="goToLogin">Login</span>
+      <p class="text-[#16324F] mr-2">Already have an account?</p>
+      <span class="underline cursor-pointer text-[#16324F]" @click="goToLogin">Login</span>
     </div>
     <div class="col-span-2">
       <p
@@ -75,7 +75,7 @@ import { ref } from 'vue'
 /* import { supabase } from '../supabase.js' */
 import { auth, db } from '../firebase.js'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { getFirestore, doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 
 const router = useRouter()
 
@@ -107,10 +107,10 @@ const handleRegister = async () => {
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value)
-    console.log(userCredential)
+    /*  console.log(userCredential) */
 
     const user = userCredential.user
-    console.log(user)
+    /* console.log(user) */
 
     await updateProfile(user, {
       displayName: username.value,

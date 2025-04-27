@@ -65,6 +65,8 @@
 
 <script setup>
 import { ref } from 'vue'
+import { supabase } from '../supabase.js'
+import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore'
 
 const opis = ref('')
 const naslov = ref('')
@@ -73,17 +75,20 @@ const listingCreated = ref(false)
 
 const slika = ref(null)
 
-// Preview za uploadanu sliku
+const uploadSlika = ref(null)
+
+// Lokalni preview za uploadanu sliku
 const handleImageUpload = (event) => {
   console.log(event)
   console.log('image uploaded')
   const file = event.target.files[0]
+  uploadSlika.value = file
   if (file) {
     slika.value = URL.createObjectURL(file)
   }
 }
 
-const handleAddListing = async () => {
+/* const handleAddListing = async () => {
   if (!opis.value || !naslov.value || !cijena.value || !slika.value) {
     console.log('All fields required')
     return
@@ -95,5 +100,5 @@ const handleAddListing = async () => {
   } catch (error) {
     console.log('Listing neuspješan, jer: ', error)
   }
-}
+} */
 </script>

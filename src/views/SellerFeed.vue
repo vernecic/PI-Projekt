@@ -25,6 +25,7 @@ onAuthStateChanged(auth, (user) => {
   console.log('User:', user)
 
   if (user) {
+    // ulogiran
     username.value = user.displayName
   }
 })

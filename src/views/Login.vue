@@ -1,24 +1,24 @@
 <template>
   <div class="min-h-screen flex justify-center items-center flex-col gap-5">
-    <h1 class="text-white text-4xl font-bold">Login</h1>
+    <h1 class="text-[#16324F] text-4xl font-bold">Login</h1>
     <form @submit.prevent="handleLogin" class="grid grid-cols-2 gap-5">
       <input
         v-model="email"
         type="email"
         placeholder="Email"
         required
-        class="border-2 border-white text-white p-2 rounded-md outline-0"
+        class="border-2 border-[#16324F] text-[#16324F] p-2 rounded-md outline-0"
       />
       <input
         v-model="password"
         type="password"
         placeholder="Password"
         required
-        class="border-2 border-white text-white p-2 rounded-md outline-0"
+        class="border-2 border-[#16324F] text-[#16324F] p-2 rounded-md outline-0"
       />
     </form>
 
-    <div class="text-white text-xl">
+    <div class="text-white text-xl flex items-center">
       <button
         class="bg-[#18435A] p-2 rounded-md font-bold cursor-pointer mr-3 border-2 border-white hover:bg-white hover:text-[#18435A] transition-all duration-300 ease-in-out"
         @click="handleLogin"
@@ -26,8 +26,8 @@
         Login
       </button>
 
-      Don't have an account?
-      <span class="underline cursor-pointer" @click="goToRegister">Register</span>
+      <p class="text-[#16324F] mr-2">Don't have an account?</p>
+      <span class="underline cursor-pointer text-[#16324F]" @click="goToRegister">Register</span>
     </div>
   </div>
 </template>
