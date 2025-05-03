@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen flex">
-    <SellerSidebar :username="username" @open-create-listing="showCreateListing = true" />
+  <div class="min-h-screen flex flex-col">
+    <SellerNavbar :username="username" @open-create-listing="showCreateListing = true" />
     <div class="flex-1 p-8 text-white flex justify-center items-center">
       <div v-if="showCreateListing">
         <CreateListing />
@@ -16,7 +16,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 /* import { updateProfile } from 'firebase/auth' */
 
 import CreateListing from '@/components/CreateListing.vue'
-import SellerSidebar from '@/components/SellerSidebar.vue'
+import SellerNavbar from '@/components/SellerNavbar.vue'
 
 const username = ref('')
 

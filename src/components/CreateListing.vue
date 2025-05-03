@@ -1,15 +1,15 @@
 <template>
   <div
     v-if="!listingCreated"
-    class="bg-[#13293D] w-2xl flex p-2 rounded-md justify-center items-center flex-col"
+    class="bg-white w-2xl flex p-2 rounded-md justify-center items-center flex-col"
   >
-    <h2 class="text-2xl">Create a listing</h2>
+    <h2 class="text-2xl text-[#13293D]">Create a listing</h2>
     <div class="flex flex-row mt-5">
       <label for="image-upload" class="cursor-pointer">
         <div
           class="w-[200px] h-[200px] bg-gray-300 flex justify-center items-center rounded-md mr-5"
         >
-          <span v-if="!slika" class="text-white">Upload Image</span>
+          <span v-if="!slika" class="text-[#13293D]">Upload Image</span>
           <img
             v-if="slika"
             :src="slika"
@@ -31,27 +31,30 @@
         <input
           v-model="naslov"
           type="text"
-          class="border-2 rounded-md p-1 mt-2 w-[300px]"
+          class="border-2 rounded-md p-1 mt-2 w-[300px] text-[#13293D]"
           placeholder="Product title"
           required
         />
         <textarea
           v-model="opis"
-          class="border-2 rounded-md p-1 mt-2 w-[300px] h-[100px]"
+          class="border-2 rounded-md p-1 mt-2 w-[300px] h-[100px] text-[#13293D]"
           placeholder="Product description"
           required
         />
         <input
           v-model="cijena"
           type="number"
-          class="border-2 rounded-md p-1 mt-2 w-[300px] mb-5"
+          class="border-2 rounded-md p-1 mt-2 w-[300px] mb-5 text-[#13293D]"
           placeholder="Price (€)"
           required
         />
       </div>
     </div>
-    <button class="bg-gray-500 p-2 rounded-md font-bold cursor-pointer" @click="handleAddListing">
-      Add listing
+    <button
+      type="button"
+      class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer"
+    >
+      Submit listing
     </button>
 
     <div class="text-gray-500 text-xs mt-3">
@@ -87,18 +90,4 @@ const handleImageUpload = (event) => {
     slika.value = URL.createObjectURL(file)
   }
 }
-
-/* const handleAddListing = async () => {
-  if (!opis.value || !naslov.value || !cijena.value || !slika.value) {
-    console.log('All fields required')
-    return
-  }
-  try {
-    listingCreated.value = true
-    await saveListing(opis.value, naslov.value, cijena.value, slika.value)
-    console.log('Listing uspješan')
-  } catch (error) {
-    console.log('Listing neuspješan, jer: ', error)
-  }
-} */
 </script>
