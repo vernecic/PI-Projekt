@@ -1,6 +1,8 @@
 <template>
   <div class="dark:bg-gray-900 w-screen flex flex-wrap items-center justify-between h-full p-5">
-    <span class="self-center text-2xl font-semibold dark:text-white">Marketplace</span>
+    <router-link to="/seller-feed">
+      <span class="self-center text-2xl font-semibold dark:text-white">Marketplace</span>
+    </router-link>
     <button
       data-collapse-toggle="navbar-default"
       type="button"
