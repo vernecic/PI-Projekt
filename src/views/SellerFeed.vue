@@ -1,6 +1,11 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <SellerNavbar :username="username" @open-create-listing="showCreateListing = true" />
+  <div class="flex flex-col w-full">
+    <!-- Fixed top navbar container -->
+    <div class="w-full h-30 sticky top-0 z-50 bg-gray-900">
+      <SellerNavbar :username="username" @open-create-listing="showCreateListing = true" />
+    </div>
+
+    <!-- Main content area -->
     <div class="flex-1 p-8 text-white flex justify-center items-center">
       <div v-if="showCreateListing">
         <CreateListing />
