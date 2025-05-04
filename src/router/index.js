@@ -20,6 +20,11 @@ const routes = [
     name: 'seller-feed',
     component: SellerFeed,
   },
+  {
+    path: '/create-listing',
+    name: 'create-listing',
+    component: CreateListing,
+  },
   /*  { path: '/create-listing', name: 'CreateListing', component: CreateListing }, */
 ]
 

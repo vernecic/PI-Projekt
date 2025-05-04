@@ -2,14 +2,13 @@
   <div class="flex flex-col w-full">
     <!-- Fixed top navbar container -->
     <div class="w-full h-30 sticky top-0 z-50 bg-gray-900">
-      <SellerNavbar :username="username" @open-create-listing="showCreateListing = true" />
+      <SellerNavbar :username="username" />
     </div>
-
-    <!-- Main content area -->
-    <div class="flex-1 p-8 text-white flex justify-center items-center">
-      <div v-if="showCreateListing">
-        <CreateListing />
-      </div>
+    <div class="flex items-center mt-20 flex-col">
+      <h1 class="font-bold text-3xl">Your listings:</h1>
+      <router-link to="/create-listing">
+        <button class="mt-20 rounded-lg border-2 p-2 cursor-pointer">Create a listing</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -22,6 +21,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 
 import CreateListing from '@/components/CreateListing.vue'
 import SellerNavbar from '@/components/SellerNavbar.vue'
+import MyOrders from '@/components/MyOrders.vue'
 
 const username = ref('')
 
@@ -36,4 +36,5 @@ onAuthStateChanged(auth, (user) => {
 })
 
 const showCreateListing = ref(false)
+const showMyOrders = ref(false)
 </script>

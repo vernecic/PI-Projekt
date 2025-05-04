@@ -7,10 +7,8 @@
       class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       aria-controls="navbar-default"
       aria-expanded="false"
-    >
-      <span class="sr-only">Open main menu</span>
-    </button>
-    <div class="hidden w-full md:block md:w-auto" id="navbar-default ">
+    ></button>
+    <div class="w-full md:block md:w-auto" id="navbar-default ">
       <ul
         class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
       >
@@ -22,12 +20,14 @@
             >Home</a
           >
         </li>
+
         <li>
           <a
-            href="#"
-            class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-            >Orders</a
+            class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer"
+            @click="$emit('open-my-orders')"
           >
+            Orders
+          </a>
         </li>
         <li>
           <a
@@ -52,7 +52,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 
-const emit = defineEmits(['open-create-listing'])
+const emit = defineEmits(['open-create-listing', 'open-my-orders'])
 
 const props = defineProps({
   username: String,
