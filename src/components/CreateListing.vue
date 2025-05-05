@@ -118,7 +118,7 @@ const fetchUsername = async () => {
 }
 
 onMounted(async () => {
-  username.value = await fetchUsername()
+  username.value = await fetchUsername() // sprema username iz funkcije
 })
 
 const handleImageUpload = (event) => {
