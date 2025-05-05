@@ -7,6 +7,7 @@ import SellerFeed from '../views/SellerFeed.vue'
 import CreateListing from '@/components/CreateListing.vue'
 import MyOrders from '@/components/MyOrders.vue'
 import Notifications from '@/components/Notifications.vue'
+import AdminPage from '../views/AdminPage.vue'
 
 const routes = [
   { path: '/', name: 'welcome', component: WelcomePage },
@@ -36,6 +37,11 @@ const routes = [
     path: '/notifications',
     name: 'notifications',
     component: Notifications,
+  },
+  {
+    path: '/admin-page',
+    name: 'admin-page',
+    component: AdminPage,
   },
   /*  { path: '/create-listing', name: 'CreateListing', component: CreateListing }, */
 ]

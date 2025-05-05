@@ -73,6 +73,8 @@ const handleLogin = async () => {
         router.push('/seller-feed')
       } else if (accountType === 'buyer') {
         router.push('/buyer-feed')
+      } else if (accountType === 'admin') {
+        router.push('/admin-page')
       } else {
         errMessage.value = 'Error with account type.'
       }
