@@ -7,7 +7,7 @@ import SellerFeed from '../views/SellerFeed.vue'
 import CreateListing from '@/components/CreateListing.vue'
 import MyOrders from '@/components/MyOrders.vue'
 import Notifications from '@/components/Notifications.vue'
-import AdminPage from '../views/AdminPage.vue'
+import AdminPage from '@/views/AdminPage.vue'
 
 const routes = [
   { path: '/', name: 'welcome', component: WelcomePage },

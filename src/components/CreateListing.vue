@@ -86,9 +86,9 @@
 
 <script setup>
 import SellerNavbar from '@/components/SellerNavbar.vue'
-import { collection, addDoc, serverTimestamp } from '@firebase/firestore'
-import { db } from '@/firebase.js'
-import { ref } from 'vue'
+import { collection, addDoc, serverTimestamp, getDoc, doc } from '@firebase/firestore'
+import { auth, db } from '@/firebase.js'
+import { onMounted, ref } from 'vue'
 
 const opis = ref('')
 const naslov = ref('')
@@ -97,6 +97,29 @@ const listingCreated = ref(false)
 
 const slika = ref(null)
 const uploadSlika = ref(null)
+const username = ref(null)
+
+const fetchUsername = async () => {
+  const user = auth.currentUser
+  if (!user) return
+
+  try {
+    const userDoc = await getDoc(doc(db, 'users', user.uid))
+    if (userDoc.exists()) {
+      console.log(userDoc.data()) // email, account_type, username
+      return userDoc.data().username
+    } else {
+      return null
+    }
+  } catch (error) {
+    console.error('Error with user:', error)
+    return
+  }
+}
+
+onMounted(async () => {
+  username.value = await fetchUsername()
+})
 
 const handleImageUpload = (event) => {
   const file = event.target.files[0]
@@ -111,6 +134,24 @@ const submitListing = async () => {
   if (!naslov.value || !opis.value || !cijena.value) {
     return
   }
+
+  const user = auth.currentUser
+  if (!user) {
+    console.error('Error with the user')
+    return
+  }
+  const userId = user.uid
+
+  if (!username.value) {
+    username.value = await fetchUsername()
+    console.log(username.value)
+
+    if (!username.value) {
+      alert('Could not find your username.')
+      return
+    }
+  }
+
   try {
     await addDoc(collection(db, 'listings'), {
       title: naslov.value,
@@ -118,6 +159,8 @@ const submitListing = async () => {
       price: parseFloat(cijena.value),
       createdAt: serverTimestamp(),
       approved: false,
+      userId: userId,
+      username: username.value,
     })
 
     listingCreated.value = true

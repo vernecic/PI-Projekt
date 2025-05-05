@@ -65,11 +65,5 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const props = defineProps({
-  username: String,
-})
-
-console.log('Username:', props.username)
-
 /* const router = useRouter() */
 </script>

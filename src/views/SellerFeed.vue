@@ -26,8 +26,6 @@ const username = ref('')
 
 // kad se userstate promijeni, ako je korisnik ulogiran, user.displayName se postavlja za username
 onAuthStateChanged(auth, (user) => {
-  console.log('User:', user)
-
   if (user) {
     // ulogiran
     username.value = user.displayName
