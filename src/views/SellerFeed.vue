@@ -5,7 +5,7 @@
       <SellerNavbar :username="username" />
     </div>
     <div class="flex items-center mt-20 flex-col">
-      <h1 class="font-bold text-3xl">Your listings:</h1>
+      <h1 class="text-2xl">Your listings:</h1>
       <router-link to="/create-listing">
         <button class="mt-20 rounded-lg border-2 p-2 cursor-pointer">Create a listing</button>
       </router-link>
@@ -21,7 +21,6 @@ import { onAuthStateChanged } from 'firebase/auth'
 
 import CreateListing from '@/components/CreateListing.vue'
 import SellerNavbar from '@/components/SellerNavbar.vue'
-import MyOrders from '@/components/MyOrders.vue'
 
 const username = ref('')
 

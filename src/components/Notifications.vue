@@ -2,8 +2,8 @@
   <div class="w-full h-30 sticky top-0 z-50 bg-gray-900">
     <SellerNavbar></SellerNavbar>
   </div>
-  <div class="flex flex-col items-center mt-20">
-    <h1 class="text-2xl">My orders:</h1>
+  <div>
+    <h1>My notifications</h1>
   </div>
 </template>
 

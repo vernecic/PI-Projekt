@@ -12,37 +12,46 @@
     ></button>
     <div class="w-full md:block md:w-auto" id="navbar-default ">
       <ul
-        class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+        class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
       >
         <li>
-          <a
-            href="#"
-            class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+          <router-link
+            to="/seller-feed"
+            :class="[
+              'block py-2 px-3 hover:text-blue-700 bg-transparent md:p-0 cursor-pointer',
+              route.path === '/seller-feed' ? 'text-blue-700' : 'text-white',
+            ]"
             aria-current="page"
-            >Home</a
+            >Home</router-link
           >
         </li>
 
         <li>
-          <a
-            class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer"
-            @click="$emit('open-my-orders')"
+          <router-link
+            to="/orders"
+            :class="[
+              'block py-2 px-3  md:hover:text-blue-700 md:p-0 cursor-pointer',
+              route.path === '/orders' ? 'text-blue-700' : 'text-white',
+            ]"
           >
             Orders
-          </a>
+          </router-link>
         </li>
         <li>
-          <a
-            href="#"
-            class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-            >Notifications</a
+          <router-link
+            to="/notifications"
+            :class="[
+              'block py-2 px-3  md:hover:text-blue-700 md:p-0 cursor-pointer',
+              route.path === '/notifications' ? 'text-blue-700' : 'text-white',
+            ]"
+            >Notifications</router-link
           >
         </li>
 
         <li>
           <a
             href="#"
-            class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+            class="block py-2 px-3 text-white rounded-sm hover:bg-gray-100 md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
             >Log out</a
           >
         </li>
@@ -52,9 +61,9 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
-const emit = defineEmits(['open-create-listing', 'open-my-orders'])
+const route = useRoute()
 
 const props = defineProps({
   username: String,

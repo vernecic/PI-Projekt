@@ -1,10 +1,10 @@
 <template>
-  <SellerNavbar />
+  <div class="w-full h-30 sticky top-0 z-50 bg-gray-900">
+    <SellerNavbar></SellerNavbar>
+  </div>
 
-  <div v-if="!listingCreated" class="min-h-screen flex justify-center items-center bg-gray-100">
-    <div
-      class="bg-white w-[800px] flex p-6 rounded-md justify-center items-center flex-col shadow-lg"
-    >
+  <div v-if="!listingCreated">
+    <div class="w-full mt-50 flex rounded-md justify-center items-center flex-col">
       <h2 class="text-2xl text-[#13293D] mb-4">Create a listing</h2>
 
       <div class="flex flex-row">
