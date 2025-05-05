@@ -4,6 +4,7 @@
   </div>
   <div class="flex flex-col items-center mt-20">
     <h1 class="text-2xl">My orders:</h1>
+    <!-- popis narudzbi-->
   </div>
 </template>
 

@@ -4,6 +4,7 @@
   </div>
   <div>
     <h1>My notifications</h1>
+    <!-- obavijesti o narudzbama -->
   </div>
 </template>
 

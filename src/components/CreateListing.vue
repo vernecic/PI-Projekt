@@ -59,6 +59,7 @@
       <button
         type="button"
         class="mt-6 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer"
+        @click="submitListing"
       >
         Submit listing
       </button>
@@ -80,6 +81,8 @@
 
 <script setup>
 import SellerNavbar from '@/components/SellerNavbar.vue'
+import { collection, addDoc, serverTimestamp } from '@firebase/firestore'
+import { db } from '@/firebase.js'
 import { ref } from 'vue'
 
 const opis = ref('')
@@ -95,6 +98,26 @@ const handleImageUpload = (event) => {
   uploadSlika.value = file
   if (file) {
     slika.value = URL.createObjectURL(file)
+  }
+}
+
+// submit Listing
+const submitListing = async () => {
+  if (!naslov.value || !opis.value || !cijena.value) {
+    return
+  }
+  try {
+    await addDoc(collection(db, 'listings'), {
+      title: naslov.value,
+      description: opis.value,
+      price: parseFloat(cijena.value),
+      createdAt: serverTimestamp(),
+      approved: false,
+    })
+
+    listingCreated.value = true
+  } catch (error) {
+    console.error('Error adding document: ', error)
   }
 }
 </script>
