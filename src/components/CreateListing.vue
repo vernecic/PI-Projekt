@@ -73,9 +73,14 @@
 
   <div
     v-else
-    class="min-h-screen flex justify-center items-center bg-gray-100 text-center text-[#13293D] text-lg"
+    class="min-h-screen flex justify-center items-center bg-gray-100 text-center text-[#13293D] text-lg flex-col"
   >
     Listing created, awaiting approval.
+    <router-link to="/create-listing">
+      <button class="mt-10 border rounded-lg p-2 cursor-pointer">
+        Create another
+      </button></router-link
+    >
   </div>
 </template>
 
