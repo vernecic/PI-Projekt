@@ -3,7 +3,7 @@
     <router-link to="/seller-feed">
       <span class="self-center text-2xl font-semibold dark:text-white">Marketplace</span>
     </router-link>
-    <h1 class="text-white font-bold text-3xl">ADMIN</h1>
+    <h1 class="text-white font-bold text-3xl ml-[10rem]">Admin</h1>
     <div class="w-full md:block md:w-auto" id="navbar-default ">
       <ul
         class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
@@ -19,10 +19,21 @@
             >Home</router-link
           >
         </li>
+        <li>
+          <router-link
+            to="/listing-panel"
+            :class="[
+              'block py-2 px-3  md:hover:text-blue-700 md:p-0 cursor-pointer',
+              route.path === '/orders' ? 'text-blue-700' : 'text-white',
+            ]"
+          >
+            Listings
+          </router-link>
+        </li>
 
         <li>
           <router-link
-            to="/orders"
+            to="/orders-panel"
             :class="[
               'block py-2 px-3  md:hover:text-blue-700 md:p-0 cursor-pointer',
               route.path === '/orders' ? 'text-blue-700' : 'text-white',
@@ -33,11 +44,12 @@
         </li>
 
         <li>
-          <a
-            href="#"
-            class="block py-2 px-3 text-white rounded-sm hover:bg-gray-100 md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-            >Log out</a
+          <p
+            @click="handleSignOut"
+            class="block py-2 px-3 text-white rounded-sm md:border-0 md:hover:text-blue-700 md:p-0 cursor-pointer"
           >
+            Log out
+          </p>
         </li>
       </ul>
     </div>
@@ -46,6 +58,21 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
+
+import { auth } from '@/firebase'
+import { signOut } from 'firebase/auth'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const handleSignOut = async () => {
+  try {
+    await signOut(auth)
+    router.push('/login')
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const route = useRoute()
 

@@ -41,10 +41,12 @@
         </li>
 
         <li>
-          <a
-            href="#"
-            class="block py-2 px-3 text-white rounded-sm hover:bg-gray-100 md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-            >Log out</a
+          <p
+            @click="handleSignOut"
+            class="block py-2 px-3 text-white rounded-sm md:border-0 md:hover:text-blue-700 md:p-0"
+          >
+            Log out
+          </p>
           >
         </li>
       </ul>
@@ -54,6 +56,21 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
+
+import { auth } from '@/firebase'
+import { signOut } from 'firebase/auth'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const handleSignOut = async () => {
+  try {
+    await signOut(auth)
+    router.push('/login')
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const route = useRoute()
 

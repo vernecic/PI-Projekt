@@ -4,10 +4,11 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import BuyerFeed from '../views/BuyerFeed.vue'
 import SellerFeed from '../views/SellerFeed.vue'
-import CreateListing from '@/components/CreateListing.vue'
-import MyOrders from '@/components/MyOrders.vue'
-import Notifications from '@/components/Notifications.vue'
+import CreateListing from '@/views/CreateListing.vue'
+import MyOrders from '@/views/MyOrders.vue'
+import Notifications from '@/views/Notifications.vue'
 import AdminPage from '@/views/AdminPage.vue'
+import ListingPanel from '@/views/ListingPanel.vue'
 
 const routes = [
   { path: '/', name: 'welcome', component: WelcomePage },
@@ -42,6 +43,10 @@ const routes = [
     path: '/admin-page',
     name: 'admin-page',
     component: AdminPage,
+  },
+  {
+    path: '/listing-panel',
+    component: ListingPanel,
   },
   /*  { path: '/create-listing', name: 'CreateListing', component: CreateListing }, */
 ]

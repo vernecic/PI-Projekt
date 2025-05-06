@@ -4,11 +4,13 @@
     <div class="w-full h-30 sticky top-0 z-50 bg-gray-900">
       <SellerNavbar :username="username" />
     </div>
-    <div class="flex items-center mt-20 flex-col">
-      <h1 class="text-2xl">Your listings:</h1>
+    <div class="flex items-center flex-col">
       <router-link to="/create-listing">
         <button class="mt-20 rounded-lg border-2 p-2 cursor-pointer">Create a listing</button>
       </router-link>
+
+      <h1 class="text-2xl mt-20">Your listings:</h1>
+      <!-- ListingCard s edit gumbom-->
     </div>
   </div>
 </template>
@@ -19,7 +21,7 @@ import { auth } from '@/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 /* import { updateProfile } from 'firebase/auth' */
 
-import CreateListing from '@/components/CreateListing.vue'
+import CreateListing from '@/views/CreateListing.vue'
 import SellerNavbar from '@/components/SellerNavbar.vue'
 
 const username = ref('')
