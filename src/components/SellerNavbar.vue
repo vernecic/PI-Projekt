@@ -49,7 +49,6 @@
           >
             Log out
           </p>
-          >
         </li>
       </ul>
     </div>

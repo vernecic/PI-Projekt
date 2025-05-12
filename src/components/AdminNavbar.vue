@@ -5,9 +5,7 @@
     <router-link to="/seller-feed">
       <span class="self-center text-2xl font-semibold dark:text-white">Marketplace</span>
     </router-link>
-    <h1 class="text-white font-bold text-3xl absolute left-1/2 transform -translate-x-1/2">
-      Admin
-    </h1>
+    <h1 class="text-white font-bold text-3xl absolute left-1/2 -translate-x-1/2">Admin</h1>
     <div class="w-full md:block md:w-auto" id="navbar-default ">
       <ul
         class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
@@ -37,7 +35,7 @@
 
         <li>
           <router-link
-            to="/orders-panel"
+            to="/orders"
             :class="[
               'block py-2 px-3  md:hover:text-blue-700 md:p-0 cursor-pointer',
               route.path === '/orders' ? 'text-blue-700' : 'text-white',

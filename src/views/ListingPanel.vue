@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-30 sticky top-0 z-50 bg-gray-900">
+  <div class="w-full h-30 flex gap-5 justify-between items-center sticky top-0 z-50">
     <AdminNavbar />
   </div>
   <div class="flex items-center flex-col mt-20 w-full">
@@ -20,13 +20,33 @@ import Listing from '@/components/ListingComponent.vue'
 import { onMounted, ref } from 'vue'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '@/firebase'
+import { supabase } from '@/supabase.js'
 
 const listings = ref([])
 
 const fetchListings = async () => {
   const q = query(collection(db, 'listings'), where('approved', '==', false))
+
   const snapshot = await getDocs(q)
-  listings.value = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+  console.log(snapshot.docs)
+
+  listings.value = await Promise.all(
+    snapshot.docs.map(async (doc) => {
+      const listingData = { ...doc.data(), id: doc.id }
+
+      const { data, error } = await supabase.storage
+        .from('listing-images')
+        .getPublicUrl(listingData.imagePath)
+
+      if (error) {
+        console.error('Error fetching image URL:', error)
+      } else {
+        listingData.imageUrl = data.publicUrl
+      }
+
+      return listingData
+    }),
+  )
 }
 
 onMounted(() => {

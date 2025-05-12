@@ -3,13 +3,13 @@ import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBm5cr5yyT1EWFFoACq__FSt8PhmhPq4fQ',
-  authDomain: 'marketplace-a5710.firebaseapp.com',
-  projectId: 'marketplace-a5710',
-  storageBucket: 'marketplace-a5710.firebasestorage.app',
-  messagingSenderId: '733397861297',
-  appId: '1:733397861297:web:fd2954d543c7ccd5b7f390',
-  measurementId: 'G-ZF3N731J8P',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 }
 
 const app = initializeApp(firebaseConfig)

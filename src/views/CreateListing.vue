@@ -89,6 +89,7 @@ import SellerNavbar from '@/components/SellerNavbar.vue'
 import { collection, addDoc, serverTimestamp, getDoc, doc } from '@firebase/firestore'
 import { auth, db } from '@/firebase.js'
 import { onMounted, ref } from 'vue'
+import { supabase } from '@/supabase'
 
 const opis = ref('')
 const naslov = ref('')
@@ -121,51 +122,74 @@ onMounted(async () => {
   username.value = await fetchUsername() // sprema username iz funkcije
 })
 
-const handleImageUpload = (event) => {
+/* const handleImageUpload = (event) => {
   const file = event.target.files[0]
+  uploadSlika.value = file
+  if (file) {
+    slika.value = URL.createObjectURL(file)
+  }
+} */
+
+const handleImageUpload = (e) => {
+  const file = e.target.files[0]
   uploadSlika.value = file
   if (file) {
     slika.value = URL.createObjectURL(file)
   }
 }
 
+const imageSupabase = async (file, path) => {
+  const { data, error } = await supabase.storage.from('listing-images').upload(path, file)
+  if (error) throw error
+  return data.path
+}
+
+//id za listing
+const generateListingId = () => {
+  return Math.floor(10000 + Math.random() * 90000).toString()
+}
+
 // submit Listing
 const submitListing = async () => {
-  if (!naslov.value || !opis.value || !cijena.value) {
+  if (!naslov.value || !opis.value || !cijena.value || !uploadSlika.value) {
+    alert('All fields including image are required.')
     return
   }
 
   const user = auth.currentUser
   if (!user) {
-    console.error('Error with the user')
+    console.error('User not logged in')
     return
-  }
-  const userId = user.uid
-
-  if (!username.value) {
-    username.value = await fetchUsername()
-    console.log(username.value)
-
-    if (!username.value) {
-      alert('Could not find your username.')
-      return
-    }
   }
 
   try {
+    const userId = user.uid
+    if (!username.value) username.value = await fetchUsername()
+
+    const uniqueFileName = `${Date.now()}-${uploadSlika.value.name}`
+    const imagePath = `uploads/${uniqueFileName}`
+
+    await imageSupabase(uploadSlika.value, imagePath)
+
+    const { data: publicUrlData } = supabase.storage.from('listing-images').getPublicUrl(imagePath)
+
+    const publicUrl = publicUrlData.publicUrl
+
     await addDoc(collection(db, 'listings'), {
       title: naslov.value,
       description: opis.value,
       price: parseFloat(cijena.value),
       createdAt: serverTimestamp(),
       approved: false,
-      userId: userId,
+      userId,
       username: username.value,
+      listingId: generateListingId(),
+      imageUrl: publicUrl,
     })
 
     listingCreated.value = true
   } catch (error) {
-    console.error('Error adding document: ', error)
+    console.error('Error submitting listing:', error.message)
   }
 }
 </script>
