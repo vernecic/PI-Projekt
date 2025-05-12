@@ -7,13 +7,7 @@
     <p class="font-[400]">€{{ listing.price }}</p>
     <p class="text-sm">Id: {{ listing.listingId }}</p>
     <div class="mt-2 flex gap-2">
-      <button
-        class="bg-green-500 text-white px-2 py-1 rounded cursor-pointer"
-        @click="handleApprove(listing.id)"
-      >
-        Approve
-      </button>
-      <button class="bg-red-500 text-white px-2 py-1 rounded cursor-pointer">Reject</button>
+      <slot name="buttons" />
     </div>
   </div>
 </template>
@@ -23,29 +17,7 @@ import { doc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { auth } from '@/firebase'
 
-const handleApprove = async (listingId) => {
-  const user = auth.currentUser
-  if (!user) {
-    return
-  }
-
-  const listingRef = doc(db, 'listings', listingId)
-
-  try {
-    await updateDoc(listingRef, {
-      approved: true,
-    })
-    console.log('Listing approved!')
-  } catch (error) {
-    console.error('Error approving listing:', error.message)
-  }
-}
-
 const props = defineProps({
   listing: Object,
 })
-
-//  approve - udpdate approved: true
-
-//  reject - izbrisati
 </script>
