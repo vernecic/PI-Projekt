@@ -1,5 +1,5 @@
 <template>
-  <div class="border p-4 rounded w-[400px]">
+  <div class="border p-4 rounded w-[250px] shadow-lg">
     <img :src="listing.imageUrl" class="w-[200px] h-[200px]" />
     <h3 class="text-2xl font-bold">{{ listing.title }}</h3>
     <p class="text-sm w-[200px]">{{ listing.description }}</p>
@@ -26,7 +26,6 @@ import { auth } from '@/firebase'
 const handleApprove = async (listingId) => {
   const user = auth.currentUser
   if (!user) {
-    console.error('User is not logged in')
     return
   }
 

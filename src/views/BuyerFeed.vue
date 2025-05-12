@@ -9,7 +9,10 @@
     </div>
     <div class="flex gap-2">
       <input type="number" class="border p-1 rounded-lg outline-0 w-[80px]" v-model="deposit" />
-      <button class="bg-blue-500 p-1 rounded-lg text-white shadow-md" @click="handleDeposit">
+      <button
+        class="bg-blue-500 p-1 rounded-lg text-white shadow-md cursor-pointer"
+        @click="handleDeposit"
+      >
         Deposit
       </button>
     </div>
@@ -40,9 +43,11 @@ const fetchBalance = async () => {
   if (!user) return
 
   const userRef = doc(db, 'users', user.uid)
+
   const userDoc = await getDoc(userRef)
   if (userDoc.exists()) {
-    balance.value = userDoc.data().balance || 0
+    console.log(userDoc.data())
+    balance.value = userDoc.data().balance
   }
 }
 

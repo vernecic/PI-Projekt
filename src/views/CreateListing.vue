@@ -184,6 +184,7 @@ const submitListing = async () => {
       userId,
       username: username.value,
       listingId: generateListingId(),
+      imagePath,
       imageUrl: publicUrl,
     })
 

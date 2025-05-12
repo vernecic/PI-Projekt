@@ -30,23 +30,10 @@ const fetchListings = async () => {
   const snapshot = await getDocs(q)
   console.log(snapshot.docs)
 
-  listings.value = await Promise.all(
-    snapshot.docs.map(async (doc) => {
-      const listingData = { ...doc.data(), id: doc.id }
-
-      const { data, error } = await supabase.storage
-        .from('listing-images')
-        .getPublicUrl(listingData.imagePath)
-
-      if (error) {
-        console.error('Error fetching image URL:', error)
-      } else {
-        listingData.imageUrl = data.publicUrl
-      }
-
-      return listingData
-    }),
-  )
+  listings.value = snapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  }))
 }
 
 onMounted(() => {
