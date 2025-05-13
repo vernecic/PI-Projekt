@@ -2,11 +2,14 @@
   <div class="w-full h-30 flex gap-5 justify-between items-center sticky top-0 z-50">
     <BuyerNavbar />
   </div>
-  <div class="m-10 flex justify-between items-start">
-    <div>
-      <div class="flex gap-2 items-center text-center mb-2">
-        <h1 class="text-xl">Balance:</h1>
-        <p class="text-xl">{{ balance }}€</p>
+  <div class="mt-10 flex">
+    <div class="ml-10">
+      <div class="flex flex-col">
+        <h1>Hello, {{ username }}</h1>
+        <div class="flex gap-2 items-center text-center mb-2">
+          <h1 class="text-xl">Balance:</h1>
+          <p class="text-xl">{{ balance }}€</p>
+        </div>
       </div>
       <div class="flex gap-2">
         <input type="number" class="border p-1 rounded-lg outline-0 w-[80px]" v-model="deposit" />
@@ -25,7 +28,7 @@
         <p class="text-red-500">Deposit unsuccessfull</p>
       </div>
     </div>
-    <div class="flex gap-5 w-full ml-125">
+    <div class="grid grid-cols-3 gap-3 ml-100">
       <div v-for="listing in listings" :key="listing.id" class="mb-4 grid">
         <Listing :listing="listing">
           <template #buttons>
@@ -47,6 +50,7 @@ import Listing from '@/components/ListingComponent.vue'
 import { ref, onMounted } from 'vue'
 
 const listings = ref([])
+const username = ref(null)
 
 const deposit = ref('')
 const balance = ref(0)
@@ -113,6 +117,30 @@ const handleDeposit = async () => {
     isSuccesfull.value = null
   }, 5000)
 }
+
+//USERNAME
+const fetchUsername = async () => {
+  const user = auth.currentUser
+  if (!user) return
+
+  try {
+    const userDoc = await getDoc(doc(db, 'users', user.uid))
+    if (userDoc.exists()) {
+      //
+      console.log(userDoc.data()) // email, account_type, username
+      return userDoc.data().username
+    } else {
+      return null
+    }
+  } catch (error) {
+    console.error('Error with user:', error)
+    return
+  }
+}
+
+onMounted(async () => {
+  username.value = await fetchUsername() // sprema username iz funkcije
+})
 
 onMounted(() => {
   fetchBalance()

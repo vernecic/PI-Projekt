@@ -12,7 +12,7 @@
       >
         <li>
           <router-link
-            to="/buyer-feed"
+            to="/admin-page"
             :class="[
               'block py-2 px-3 hover:text-blue-700 bg-transparent md:p-0 cursor-pointer',
               route.path === '/buyer-feed' ? 'text-blue-700' : 'text-white',

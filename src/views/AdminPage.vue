@@ -4,7 +4,7 @@
     <div class="flex items-center flex-col">
       <h1 class="text-2xl mt-20">Approved listings:</h1>
       <!-- ListingCard s remove gumbom-->
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid grid-cols-3 gap-3">
         <div v-for="listing in listings" :key="listing.id" class="mb-4">
           <!-- Render Listing Component for each listing -->
           <Listing :listing="listing">

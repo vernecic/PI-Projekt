@@ -107,6 +107,7 @@ const fetchUsername = async () => {
   try {
     const userDoc = await getDoc(doc(db, 'users', user.uid))
     if (userDoc.exists()) {
+      //
       console.log(userDoc.data()) // email, account_type, username
       return userDoc.data().username
     } else {
@@ -181,6 +182,7 @@ const submitListing = async () => {
       price: parseFloat(cijena.value),
       createdAt: serverTimestamp(),
       approved: false,
+      status: false,
       userId,
       username: username.value,
       listingId: generateListingId(),

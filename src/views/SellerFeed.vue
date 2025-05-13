@@ -2,7 +2,10 @@
   <div class="flex flex-col w-full">
     <!-- Fixed top navbar container -->
     <div class="w-full h-30 sticky top-0 z-50 bg-gray-900">
-      <SellerNavbar :username="username" />
+      <SellerNavbar />
+    </div>
+    <div>
+      <h1>Hello, {{ username }}</h1>
     </div>
     <div class="flex items-center flex-col">
       <router-link to="/create-listing">
@@ -16,22 +19,39 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { auth } from '@/firebase'
+import { ref, onMounted } from 'vue'
+import { auth, db } from '@/firebase'
+import { doc, getDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 /* import { updateProfile } from 'firebase/auth' */
 
 import CreateListing from '@/views/CreateListing.vue'
 import SellerNavbar from '@/components/SellerNavbar.vue'
 
-const username = ref('')
+const username = ref(null)
 
-// kad se userstate promijeni, ako je korisnik ulogiran, user.displayName se postavlja za username
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // ulogiran
-    username.value = user.displayName
+//USERNAME
+const fetchUsername = async () => {
+  const user = auth.currentUser
+  if (!user) return
+
+  try {
+    const userDoc = await getDoc(doc(db, 'users', user.uid))
+    if (userDoc.exists()) {
+      //
+      console.log(userDoc.data()) // email, account_type, username
+      return userDoc.data().username
+    } else {
+      return null
+    }
+  } catch (error) {
+    console.error('Error with user:', error)
+    return
   }
+}
+
+onMounted(async () => {
+  username.value = await fetchUsername() // sprema username iz funkcije
 })
 
 const showCreateListing = ref(false)
