@@ -1,4 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { auth, db } from '@/firebase'
+import { doc, getDoc } from 'firebase/firestore'
+
 import WelcomePage from '../views/WelcomePage.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
@@ -54,6 +57,37 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach(async (to, from, next) => {
+  const user = auth.currentUser
+  if (to.path === '/register' || to.path === '/login') {
+    next()
+    return
+  }
+  if (!user) {
+    next('/login')
+    return
+  }
+  const userDoc = await getDoc(doc(db, 'users', user.uid))
+  if (!userDoc.exists()) {
+    console.log('No user')
+    next('/login')
+    return
+  }
+
+  const role = userDoc.data().account_type
+
+  if (to.path === '/seller-feed' && role !== 'seller') {
+    next('/buyer-feed')
+    return
+  }
+  if (to.path === '/buyer-feed' && role !== 'buyer') {
+    next('seller-feed')
+    return
+  }
+
+  next()
 })
 
 export default router

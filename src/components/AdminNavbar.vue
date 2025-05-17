@@ -1,14 +1,12 @@
 <template>
-  <div
-    class="dark:bg-gray-900 w-screen flex flex-wrap items-center justify-between h-full p-5 relative"
-  >
+  <div class="bg-blue-500 w-screen flex flex-wrap items-center justify-between h-full p-5 relative">
     <router-link to="/seller-feed">
       <span class="self-center text-2xl font-semibold dark:text-white">Marketplace</span>
     </router-link>
     <h1 class="text-white font-bold text-3xl absolute left-1/2 -translate-x-1/2">Admin</h1>
     <div class="w-full md:block md:w-auto" id="navbar-default ">
       <ul
-        class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+        class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white bg-gray-800 dark:bg-gray-900 dark:border-gray-700"
       >
         <li>
           <router-link

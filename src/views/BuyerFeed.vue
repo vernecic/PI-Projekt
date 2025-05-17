@@ -5,7 +5,12 @@
   <div class="mt-10 flex">
     <div class="ml-10">
       <div class="flex flex-col">
-        <h1>Hello, {{ username }}</h1>
+        <div>
+          <h1 class="text-2xl">
+            Hello,
+            <span class="font-bold">{{ username }}</span>
+          </h1>
+        </div>
         <div class="flex gap-2 items-center text-center mb-2">
           <h1 class="text-xl">Balance:</h1>
           <p class="text-xl">{{ balance }}€</p>
@@ -32,7 +37,11 @@
       <div v-for="listing in listings" :key="listing.id" class="mb-4 grid">
         <Listing :listing="listing">
           <template #buttons>
-            <button class="bg-green-500 text-white px-2 py-1 rounded cursor-pointer">Buy</button>
+            <button
+              class="bg-green-500 text-white px-3 py-1 rounded cursor-pointer font-bold shadow-md"
+            >
+              Buy
+            </button>
           </template>
         </Listing>
       </div>
